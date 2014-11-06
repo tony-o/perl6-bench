@@ -73,5 +73,5 @@ class Benchmark {
   }
 };
 
-sub mytime { return now; }
+
 
