@@ -7,10 +7,13 @@ my $b = Benchmark.new(:debug(False));
 
 my $r = $b.cmpthese(5, {
   hades => sub{
-    sleep .5;
+    sleep 2;
   },
   sleepy => sub{
-    sleep .55
+    sleep 3;
   },
+  fast => sub{
+    sleep 1;
+  }
 });
 
