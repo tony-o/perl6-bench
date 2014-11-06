@@ -62,7 +62,7 @@ class Benchmark {
   method timeit(Int $n, $c) {
     my ($wn, $wc, $wd);
     $*ERR.say: "timeit $n {$c.gist}" if $.debug;
-    $wn    = $.runloop(1, $c);
+    $wn    = $.runloop($n, $c);
     $wn[5] = 0;
     $wc    = $.runloop($n, $c);
     $wd    = $.timediff($wc, $wn);
