@@ -5,7 +5,19 @@ use Bench;
 
 my $b = Bench.new(:debug(False));
 
-my $r = $b.cmpthese(5, {
+$b.cmpthese(5, {
+  hades => sub{
+    sleep 2;
+  },
+  sleepy => sub{
+    sleep 3;
+  },
+  fast => sub{
+    sleep 1;
+  }
+});
+
+$b.cmpthese(-5, {
   hades => sub{
     sleep 2;
   },

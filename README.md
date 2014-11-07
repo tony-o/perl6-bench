@@ -1,6 +1,7 @@
 #Bench[mark]
 
-It's not called ```Benchmark``` because the author thing is NYI :-)
+Benchmark tool for benchmarking how long a block of code runs for X iterations *or* how many times it can run in a given period.
+
 
 #Usage
 
