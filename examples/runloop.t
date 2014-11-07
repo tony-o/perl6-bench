@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 
 use lib 'lib';
-use Benchmark;
+use Bench;
 
-my $b = Benchmark.new(:debug(True));
+my $b = Bench.new(:debug(True));
 
 $b.timeit(10, sub{
   sleep 1;

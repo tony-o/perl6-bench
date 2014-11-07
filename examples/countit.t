@@ -1,9 +1,9 @@
 #!/usr/bin/env perl6
 
 use lib 'lib';
-use Benchmark;
+use Bench;
 
-my $b = Benchmark.new(:debug(False));
+my $b = Bench.new(:debug(False));
 
 my $r = $b.countit(5, sub{
   sleep .005;

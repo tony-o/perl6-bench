@@ -1,6 +1,6 @@
 use Text::Table::Simple;
 
-class Benchmark {
+class Bench {
   has Bool $.debug     = False;
   has Int  $.min_count = 4;
   has Rat  $.min_cpu   = 0.04;
