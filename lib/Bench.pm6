@@ -42,8 +42,9 @@ class Bench {
     my ($t0, $t1, $td);
     my $subcode = "sub \{ for (1..$n) \{ \$c(); \}; \}";
     my $tbase   = now;
+    my $ev = &($subcode.EVAL);
     while (($t0 = now) == $tbase) { };
-    &($subcode.EVAL)();
+    $ev.();
     $t1 = now;
     $td = $.timediff([$t1], [$t0]);
     return $td;
@@ -52,7 +53,7 @@ class Bench {
   method timeit(Int $n, $c) {
     my ($wn, $wc, $wd);
     $*ERR.say: "timeit $n {$c.gist}" if $.debug;
-    $wn    = $.runloop($n, $c.WHAT ~~ Sub ?? sub { } !! 'sub \{ \}');
+    $wn    = $.runloop($n, $c.WHAT ~~ Callable ?? sub { } !! 'sub \{ \}');
     $wn[1] = 0;
     $wc    = $.runloop($n, $c);
     $wc[1] = $n;
@@ -154,7 +155,7 @@ class Bench {
 
   multi method cmpthese(Int $n, $alts) {
     my $results = $.timethese($n, $alts);
-    my @vals    = map { [$_, @(%$results{$_})] }, %$results.keys;
+    my @vals    = map { [$_, |@(%$results{$_})] }, %$results.keys;
     for @vals -> $val {
       my $elapsed = $val[1];
       my $rate = $val[2] / ($elapsed + 0.00000000000000000001);
