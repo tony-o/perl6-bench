@@ -10,7 +10,7 @@ class Bench {
   method timediff($a, $b){
     my $r = Array.new;
     for 0..max($a.end,$b.end) -> $i {
-      $r.push(($a[$i] // 0) - ($b[$i] // 0));
+      $r.append(($a[$i] // 0) - ($b[$i] // 0));
     }
     return $r;
   }
@@ -18,7 +18,7 @@ class Bench {
   method timesum($a, $b){
     my $r = Array.new;
     for 0..max($a.end,$b.end) -> $i {
-      $r.push(($a[$i] // 0) + ($b[$i] // 0));
+      $r.append(($a[$i] // 0) + ($b[$i] // 0));
     }
     return $r;
   }
@@ -166,13 +166,13 @@ class Bench {
     my $displayrate = @vals.end > 0 && @vals[@vals.end/2][3] > 1 ?? 
                         True !! 
                         False;
-    my @cols = [' ', $displayrate ?? 'Rate' !! 's/iter', @vals.map({ $_[0] })];
+    my @cols = flat (' ', $displayrate ?? 'Rate' !! 's/iter', @vals.map({ $_[0] }).Slip);
     my @rows;
     for @vals -> $val {
       my ($row, $skip, $f, $rate);
       $row = Array.new;
-      $row.push($val[0]);
-      #@row.push($val[3]);
+      $row.append($val[0]);
+      #@row.append($val[3]);
       $rate = $displayrate ?? $val[3] !! 1 / $val[3];
       given ($rate) {
         when $_ >= 100 { $f = '%0.0f' };
@@ -182,7 +182,7 @@ class Bench {
         default        { $f = '%0.2e' };
       };
       $f ~= '/s' if $displayrate;
-      $row.push(sprintf($f, $rate));
+      $row.append(sprintf($f, $rate));
       for 0..@vals.end -> $i {
         my $colval = @vals[$i];
         my $out;
@@ -193,9 +193,9 @@ class Bench {
         } else {
           $out = sprintf('%.0f%%', 100 * $val[3] / $colval[3] - 100);
         }
-        $row.push($out);
+        $row.append($out);
       }
-      @rows.push($row);
+      @rows.append($row);
     }
     .say for lol2table(@cols,@rows);
   }
