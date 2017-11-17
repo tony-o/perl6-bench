@@ -41,18 +41,25 @@ class Bench {
     my ($r, $n) = @$t; 
     my $f = $format;
     my $s = '';
+    my ($wc,$usr,$sys,$cpu);
     if $use-telemetry && !$.no-telemetry {
+      ($wc, $usr, $sys, $cpu) = map { $_ < 0 ?? 0 !! $_ }, (
+        $r.wallclock / 1000000,
+        $r.cpu-user / 1000000,
+        $r.cpu-sys / 1000000,
+        $r.cpu / 1000000,
+      );
       $s ~= sprintf("$f wallclock secs ($f usr $f sys $f cpu)",
-              $r.wallclock / 1000000,
-              $r.cpu-user / 1000000,
-              $r.cpu-sys / 1000000,
-              $r.cpu / 1000000,
+              $wc,
+              $usr,
+              $sys,
+              $cpu,
             );
 
     } else {
       $s ~= sprintf("$f wallclock secs", $r);
     }
-    my $elapsed = (!$.no-telemetry && $use-telemetry) ?? $r.wallclock !! $r;
+    my $elapsed = (!$.no-telemetry && $use-telemetry) ?? $wc !! $r;
     $s ~= sprintf(" \@ $f/s (n=$n)", $n/$elapsed) if $n && $elapsed;
     return $s;
   }
