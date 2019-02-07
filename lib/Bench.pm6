@@ -109,7 +109,7 @@ class Bench {
       $ret ~= sprintf("$format wallclock secs", $t.wallclock);
     }
     my $elapsed = $t.compare-wallclock;
-    $ret ~= sprintf(" \@ $format/s (n=%d)", $t.compare-wallclock, $t.iterations);
+    $ret ~= sprintf(" \@ $format/s (n=%d)", $t.rate, $t.iterations);
     $ret;
   }
 
@@ -154,8 +154,9 @@ class Bench {
   method cmpthese(Numeric:D $iterations, %timeables) {
     self!log(0, 'cmpthese(Int,Str);');
     my %results = $.timethese($iterations, %timeables);
-    my @maxes = (1, $iterations > 0 ?? 4 !! 6, %results.keys.map({.chars}).max);
-    my @cols = ' ', $iterations > 0 ?? 'Rate' !! 's/iter', |%results.keys;
+    my @maxes = (1, $iterations > 0 ?? 4 !! 6);
+    %results.keys.sort.map({@maxes.push: .chars});
+    my @cols = ' ', $iterations > 0 ?? 'Rate' !! 's/iter', |%results.keys.sort;
     my @rows;
     for %results.keys.sort -> $res-key {
       my (@row, $value, $f);
