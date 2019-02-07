@@ -1,10 +1,10 @@
 {
   "perl" : "6.*",
   "name" : "Bench",
-  "version" : "0.1.7",
+  "version" : "0.2.0",
   "auth" : "github:tony-o",
-  "description" : "More complete port of p5's benchmark, including cmpthese, timethese, timethis, etc.",
-  "depends" : ["Text::Table::Simple"],
+  "description" : "Perl6's premier benchmarking utility",
+  "depends" : [""],
   "provides" : {
       "Bench": "lib/Bench.pm6"
   },
