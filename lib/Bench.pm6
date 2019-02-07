@@ -109,7 +109,7 @@ class Bench {
       $ret ~= sprintf("$format wallclock secs", $t.wallclock);
     }
     my $elapsed = $t.compare-wallclock;
-    $ret ~= sprintf(" \@ $format/s (n=%d)", $t.compare-wallclock, $t.iterations);
+    $ret ~= sprintf(" \@ $format/s (n=%d)", $t.rate, $t.iterations);
     $ret;
   }
 
