@@ -154,7 +154,7 @@ class Bench {
   method cmpthese(Numeric:D $iterations, %timeables) {
     self!log(0, 'cmpthese(Int,Str);');
     my %results = $.timethese($iterations, %timeables);
-    my @maxes = (1, $iterations > 0 ?? 4 !! 6, %results.keys.map({.chars}).max);
+    my @maxes = (1, $iterations > 0 ?? 4 !! 6, %results.keys.sort.map({.chars}).max);
     my @cols = ' ', $iterations > 0 ?? 'Rate' !! 's/iter', |%results.keys;
     my @rows;
     for %results.keys.sort -> $res-key {
