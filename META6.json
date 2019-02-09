@@ -4,7 +4,7 @@
   "version" : "0.2.0",
   "auth" : "github:tony-o",
   "description" : "Perl6's premier benchmarking utility",
-  "depends" : [""],
+  "depends" : [ ],
   "provides" : {
       "Bench": "lib/Bench.pm6"
   },
