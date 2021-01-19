@@ -2,7 +2,7 @@
   "perl" : "6.*",
   "name" : "Bench",
   "version" : "0.2.0",
-  "auth" : "github:tony-o",
+  "auth" : "zef:tony-o",
   "description" : "Perl6's premier benchmarking utility",
   "depends" : [ ],
   "provides" : {
